@@ -42,6 +42,13 @@ def game_loop():
     lead_y = round(screen_height / 2 / 10.0) * 10.0
     lead_x_change = 0
     lead_y_change = 0
+    snake_list = []
+    snake_length = 1
+
+    # Initialize the food's position
+    food_x = round(random.randrange(0, screen_width - block_size) / 10) * 10
+    food_y = round(random.randrange(0, screen_height - block_size) / 10) * 10
+
     
     # Start the game loop
     game_over = False
@@ -68,6 +75,26 @@ def game_loop():
         lead_x += lead_x_change
         lead_y += lead_y_change
 
+        # Fill the background
+        screen.fill((0, 40, 0))
+
+        # Draw the food
+        pygame.draw.rect(screen, (255, 0, 0), [food_x, food_y, block_size,
+                                        block_size])
+        # Update the snake's body
+        snake_head = [lead_x, lead_y]
+        snake_list.append(snake_head)
+        if len(snake_list) > snake_length:
+            del snake_list[0]
+        
+        # Draw the snake
+        draw_snake(snake_list)
+
+        # Update the display
+        pygame.display.update()
+        # Set the game's frame rate
+        clock.tick(15)
+
 # Wait for user to press a key
 wait_key = True
 while wait_key:
@@ -76,5 +103,6 @@ while wait_key:
             pygame.quit()
         if event_press.type == pygame.KEYDOWN:
             wait_key = False
+            game_loop()
     # Clean the screen
     screen.fill((255, 255, 255))
