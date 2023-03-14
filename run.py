@@ -14,7 +14,8 @@ block_size = 10
 # Create the game window
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("SnakeGame")
-
+# Create a font object for displaying the score
+display_font = pygame.font.SysFont(None, 30)
 # Create the Pygame screen and clock
 clock = pygame.time.Clock()
 # Update the screen to show the image
@@ -47,8 +48,8 @@ def game_loop():
     # Initialize the food's position
     food_x = round(random.randrange(0, screen_width - block_size) / 10) * 10
     food_y = round(random.randrange(0, screen_height - block_size) / 10) * 10
-
-    
+     # Initialize the game over flag
+    score = 0
     # Start the game loop
     game_over = False
     while not game_over:
@@ -79,6 +80,12 @@ def game_loop():
         # Check for collision with the walls
         if lead_x < 0 or lead_x >= screen_width or lead_y < 0 or lead_y >= screen_height:
             game_over = True
+        # Render the score on the screen
+        score_text = display_font.render(f"Score: {score}", True, (255,
+                                                                255, 255))
+        score_rect = score_text.get_rect()
+        score_rect.topleft = (500 - 125, 15)
+        screen.blit(score_text, score_rect)
         # Draw the food
         pygame.draw.rect(screen, (255, 0, 0), [food_x, food_y, block_size,
                                         block_size])
@@ -101,6 +108,8 @@ def game_loop():
             food_y = round(random.randrange(0,
                         screen_height - block_size) / 10.0) * 10.0
             snake_length += 1
+            # Initializing variables for score
+            score += 1
 
         # Update the display
         pygame.display.update()
