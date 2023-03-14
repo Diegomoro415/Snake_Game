@@ -1,4 +1,5 @@
 # import libraries
+import random
 import pygame 
 
 # Initialize Pygame
@@ -29,6 +30,43 @@ def draw_snake(snake_list):
     """
     for x, y in snake_list:
         pygame.draw.rect(screen, (0, 255, 0), [x, y, block_size, block_size])
+
+
+# Define the function to start the game loop
+def game_loop():
+    """
+    The main game loop that handles game logic and updates the display.
+    """
+    # Initialize the snake's position and movement
+    lead_x = round(screen_width / 2 / 10.0) * 10.0
+    lead_y = round(screen_height / 2 / 10.0) * 10.0
+    lead_x_change = 0
+    lead_y_change = 0
+    
+    # Start the game loop
+    game_over = False
+    while not game_over:
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_over = True
+                pygame.quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    lead_x_change = -block_size
+                    lead_y_change = 0
+                elif event.key == pygame.K_RIGHT:
+                    lead_x_change = block_size
+                    lead_y_change = 0
+                elif event.key == pygame.K_UP:
+                    lead_y_change = -block_size
+                    lead_x_change = 0
+                elif event.key == pygame.K_DOWN:
+                    lead_y_change = block_size
+                    lead_x_change = 0
+        # Move the snake's head
+        lead_x += lead_x_change
+        lead_y += lead_y_change
 
 # Wait for user to press a key
 wait_key = True
