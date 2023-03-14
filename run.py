@@ -31,6 +31,20 @@ screen.blit(image, image_rect)
 # Update the screen to show the image
 pygame.display.flip()
 
+# Define the function to display the game over screen
+def game_over_screen():
+    """
+    Displays the game over for few seconds
+    """
+    game_over_image = pygame.image.load('image/gameover2.png')
+    # Set the position of the GIF image on the screen
+    game_over_image_rect = image.get_rect()
+    game_over_image_rect.centerx = screen.get_rect().centerx
+    game_over_image_rect.centery = screen.get_rect().centery
+    screen.blit(game_over_image, game_over_image_rect)
+    pygame.display.update()
+    pygame.time.delay(500)
+
 # Define the function to draw the snake
 def draw_snake(snake_list):
     """
@@ -125,6 +139,16 @@ def game_loop():
         pygame.display.update()
         # Set the game's frame rate
         clock.tick(15)
+    # Display the game over screen and wait for a few seconds
+    while True:
+        for event in pygame.event.get(game_over_screen()):
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_n:
+                    pygame.quit()
+                if event.key == pygame.K_y:
+                    game_loop()
 
 # Wait for user to press a key
 wait_key = True
