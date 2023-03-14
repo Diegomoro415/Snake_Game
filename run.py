@@ -44,7 +44,6 @@ def game_loop():
     lead_y_change = 0
     snake_list = []
     snake_length = 1
-
     # Initialize the food's position
     food_x = round(random.randrange(0, screen_width - block_size) / 10) * 10
     food_y = round(random.randrange(0, screen_height - block_size) / 10) * 10
@@ -77,7 +76,9 @@ def game_loop():
 
         # Fill the background
         screen.fill((0, 40, 0))
-
+        # Check for collision with the walls
+        if lead_x < 0 or lead_x >= screen_width or lead_y < 0 or lead_y >= screen_height:
+            game_over = True
         # Draw the food
         pygame.draw.rect(screen, (255, 0, 0), [food_x, food_y, block_size,
                                         block_size])
@@ -86,9 +87,20 @@ def game_loop():
         snake_list.append(snake_head)
         if len(snake_list) > snake_length:
             del snake_list[0]
-        
+        # Check for collision with the snake's body
+        for segment in snake_list[:-1]:
+            if segment == snake_head:
+                game_over = True
         # Draw the snake
         draw_snake(snake_list)
+
+        # Update the snake's length and food's position if there's a collision
+        if lead_x == food_x and lead_y == food_y:
+            food_x = round(random.randrange(0,
+                        screen_width - block_size) / 10.0) * 10.0
+            food_y = round(random.randrange(0,
+                        screen_height - block_size) / 10.0) * 10.0
+            snake_length += 1
 
         # Update the display
         pygame.display.update()
