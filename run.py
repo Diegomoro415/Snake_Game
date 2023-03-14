@@ -18,6 +18,16 @@ pygame.display.set_caption("SnakeGame")
 display_font = pygame.font.SysFont(None, 30)
 # Create the Pygame screen and clock
 clock = pygame.time.Clock()
+# Load the image for the initial screen
+image = pygame.image.load('image/init_screen.png')
+
+# Set the position of the image on the screen
+image_rect = image.get_rect()
+image_rect.centerx = screen.get_rect().centerx
+image_rect.centery = screen.get_rect().centery
+
+# Draw the image on the screen
+screen.blit(image, image_rect)
 # Update the screen to show the image
 pygame.display.flip()
 
