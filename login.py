@@ -15,6 +15,19 @@ wks = gc.open('snakegame_creds').sheet1
 
 # Setting Login interface with Tkinter
 class Login(tk.Frame):
+    """
+    A class to create a login window
+    """
+    def on_password_entry_keypress(self, event):
+        """
+        A method to call check_login() method if Return key is pressed in the password field
+
+        Args:
+            event: A key event object
+        """
+        if event.keysym == 'Return':
+            self.check_login()
+
     def __init__(self, master):
         """
         Constructor for Login class, initializes and configures the login window
@@ -57,6 +70,9 @@ class Login(tk.Frame):
         self.signin_btn.pack()
         self.login_label = Label(master, text="", background='#A4C58C', justify='center')
         self.signin_label = Label(master, text="", background='#A4C58C', justify='center')
+        # Bind the 'Return' key to the password entry field,
+        # when the user presses Enter, the login function is called
+        self.password_entry.bind('<Key>', self.on_password_entry_keypress)
 
         # Position the widgets on the window
         self.username_entry.place(width=220, height=20, x=130, y=198)
@@ -93,6 +109,7 @@ class Login(tk.Frame):
         # Display a message to the user indicating that registration was successful
         self.signin_label.config(fg="green", text="You are registered!")
 
+   
     def check_login(self):
         """
         Authenticate the user's login credentials.
