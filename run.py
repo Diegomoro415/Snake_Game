@@ -1,8 +1,18 @@
 # pylint: disable=E1101
 # import libraries
 import random
-import pygame 
+import pygame
+from login import *
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
+# Define the scope of the API access and credentials for authentication
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name(
+    'service_account.json', scope)
+gc = gspread.authorize(credentials)
+wks = gc.open('snakegame_ws').sheet1
 
 class Game():
     """
@@ -102,6 +112,9 @@ class Game():
             food_y = round(random.randrange(0, screen_height - block_size) / 10) * 10
             # Initialize the game over flag
             score = 0
+            record_cell = wks.cell(2, 4)
+            record = int(record_cell.value) if record_cell.value else 0
+            current_score = wks.cell(2, 3)
             # Start the game loop
             game_over = False
             while not game_over:
@@ -123,6 +136,7 @@ class Game():
                         elif event.key == pygame.K_DOWN:
                             lead_y_change = block_size
                             lead_x_change = 0
+                            
                 # Move the snake's head
                 lead_x += lead_x_change
                 lead_y += lead_y_change
@@ -138,6 +152,12 @@ class Game():
                 score_rect = score_text.get_rect()
                 score_rect.topleft = (500 - 125, 15)
                 screen.blit(score_text, score_rect)
+                #Render the Record on the Screen
+                record_text = display_font.render(f"Record: {record}", True, (255,
+                                                                        255, 255))
+                record_rect = record_text.get_rect()
+                record_rect.topright = (120, 15)
+                screen.blit(record_text, record_rect)
                 # Draw the food
                 pygame.draw.rect(screen, (255, 0, 0), [food_x, food_y, block_size,
                                                 block_size])
@@ -162,7 +182,11 @@ class Game():
                     snake_length += 1
                     # Initializing variables for score
                     score += 1
-
+                    current_score.value = score
+                    wks.update_cell(current_score.row, current_score.col, current_score.value)
+                    if score >= record:
+                        record = score
+                        wks.update_cell(2, 4, record)
                 # Update the display
                 pygame.display.update()
                 # Set the game's frame rate
@@ -189,3 +213,8 @@ class Game():
                     game_loop()
             # Clean the screen
             screen.fill((255, 255, 255))
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    login_window = Login(root)
+    login_window.mainloop()

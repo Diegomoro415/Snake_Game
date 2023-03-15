@@ -4,6 +4,7 @@ from tkinter import *
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+import run
 
 # Define the scope of the API access and credentials for authentication
 scope = ['https://spreadsheets.google.com/feeds',
@@ -140,12 +141,9 @@ class Login(tk.Frame):
                 self.login_label.update()
                 # If Login successful, close the login screen and start the game
                 self.master.after(500, self.master.destroy)
+                run.Game.game_init(self)
         else:
             # If Login goes wrong, display an error mesage
             self.login_label.config(fg="red",
                                         text="Sorry! Username or password isn't right.")
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    login_window = Login(root)
-    login_window.mainloop()
