@@ -69,6 +69,30 @@ class Login(tk.Frame):
 
         self.login_success = False
 
+    def register(self):
+        """
+        Register a new user by adding their login credentials to the Google Sheet.
+
+        If either the username or password field is empty, a message is displayed to the user.
+        """
+
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+
+        if not username or not password:
+            # Verify if both fields were filled
+            self.signin_label.config(fg="red", text="Please fill in both fields.")
+            return
+
+        # Add the new user's credentials to the Google Sheet
+        row = [username, password,]
+        index = 2  # Index of the row to add the login information to
+        wks.insert_row(row, index)
+        
+
+        # Display a message to the user indicating that registration was successful
+        self.signin_label.config(fg="green", text="You are registered!")
+
     def check_login(self):
         """
         Authenticate the user's login credentials.
