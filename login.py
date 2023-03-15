@@ -29,4 +29,29 @@ class Login(tk.Frame):
         self.master.wm_resizable(width=False, height=False)
         self.master.iconbitmap(default='snake.ico')
 
+         # Create the GUI widgets
+        self.username_entry = tk.Entry(self.master, borderwidth=0, highlightthickness=0)
+        self.username_entry.pack()
+        self.password_entry = tk.Entry(self.master, borderwidth=0, highlightthickness=0, show="*")
+        self.password_entry.pack()
+        self.login_btn = tk.Button(self.master,
+                                       text="Log-in",
+                                       font='Arial 12',
+                                       bg='#0099FF',
+                                       fg='white',
+                                       borderwidth=0,
+                                       highlightthickness=0,
+                                       command=self.check_login)
+        self.login_btn.pack()
+        self.signin_btn = tk.Button(self.master,
+                                       text="Sign-in",
+                                       font='Arial 12',
+                                       bg='#ECFFDD',
+                                       borderwidth=0,
+                                       highlightthickness=0,
+                                       command=self.register)
+        self.signin_btn.pack()
+        self.login_label = Label(master, text="", background='#A4C58C', justify='center')
+        self.signin_label = Label(master, text="", background='#A4C58C', justify='center')
+
     
