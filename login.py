@@ -9,9 +9,9 @@ from datetime import datetime
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
-    'credssnakegame.json', scope)
+    'service_account.json', scope)
 gc = gspread.authorize(credentials)
-wks = gc.open('snakegame_creds').sheet1
+wks = gc.open('snakegame_ws').sheet1
 
 # Setting Login interface with Tkinter
 class Login(tk.Frame):
@@ -58,7 +58,7 @@ class Login(tk.Frame):
                                        fg='white',
                                        borderwidth=0,
                                        highlightthickness=0,
-                                       )
+                                       command=self.check_login)
         self.login_btn.pack()
         self.signin_btn = tk.Button(self.master,
                                        text="Sign-in",
@@ -66,7 +66,7 @@ class Login(tk.Frame):
                                        bg='#ECFFDD',
                                        borderwidth=0,
                                        highlightthickness=0,
-                                       )
+                                       command=self.register)
         self.signin_btn.pack()
         self.login_label = Label(master, text="", background='#A4C58C', justify='center')
         self.signin_label = Label(master, text="", background='#A4C58C', justify='center')
