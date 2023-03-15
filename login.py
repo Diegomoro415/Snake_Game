@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import *
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 
 # Define the scope of the API access and credentials for authentication
 scope = ['https://spreadsheets.google.com/feeds',
@@ -67,6 +68,41 @@ class Login(tk.Frame):
         self.signin_label.place(width=220, height=20, x=137, y=406)
 
         self.login_success = False
+
+    def check_login(self):
+        """
+        Authenticate the user's login credentials.
+
+        If the user's username and password match those stored in the Google Sheet, display a
+        message indicating successful login. Otherwise, display a message indicating that the
+        username or password is incorrect.
+        """
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+
+        row_index = None
+        
+        # Obtain information form googlesheets
+        login_info = wks.get_all_values()
+        # Check information to validate login
+        for index, row in enumerate(login_info):
+            if username == row[0] and password == row[1]:
+                row_index = index + 1
+                # Update the last login column for the user
+                wks.update_cell(row_index, 5, str(datetime.now()))
+                # Move the user login to the top of the worksheet once it logged in
+                login_row = wks.row_values(row_index)
+                wks.delete_row(row_index)
+                wks.insert_row(login_row, 2)
+                # Display a message indicating successful login
+                self.login_label.config(text="Login Successful!", fg="green")
+                self.login_label.update()
+                # If Login successful, close the login screen and start the game
+                self.master.after(500, self.master.destroy)
+        else:
+            # If Login goes wrong, display an error mesage
+            self.login_label.config(fg="red",
+                                        text="Sorry! Username or password isn't right.")
 
 if __name__ == "__main__":
     root = tk.Tk()
