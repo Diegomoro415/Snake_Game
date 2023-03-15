@@ -3,6 +3,7 @@
 import random
 import pygame 
 
+
 # Initialize Pygame
 pygame.init()
 
@@ -73,7 +74,7 @@ def game_loop():
     # Initialize the food's position
     food_x = round(random.randrange(0, screen_width - block_size) / 10) * 10
     food_y = round(random.randrange(0, screen_height - block_size) / 10) * 10
-     # Initialize the game over flag
+    # Initialize the game over flag
     score = 0
     # Start the game loop
     game_over = False
