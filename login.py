@@ -28,7 +28,10 @@ class Login(tk.Frame):
         self.master.geometry("500x500+511+150")
         self.master.wm_resizable(width=False, height=False)
         self.master.iconbitmap(default='snake.ico')
-
+        # Set the login screen background image
+        self.login_img = PhotoImage(file='./login_screen.png')
+        self.label_login = Label(self.master, image=self.login_img)
+        self.label_login.place(x=0, y=0)
          # Create the GUI widgets
         self.username_entry = tk.Entry(self.master, borderwidth=0, highlightthickness=0)
         self.username_entry.pack()
@@ -41,7 +44,7 @@ class Login(tk.Frame):
                                        fg='white',
                                        borderwidth=0,
                                        highlightthickness=0,
-                                       command=self.check_login)
+                                       )
         self.login_btn.pack()
         self.signin_btn = tk.Button(self.master,
                                        text="Sign-in",
@@ -49,9 +52,23 @@ class Login(tk.Frame):
                                        bg='#ECFFDD',
                                        borderwidth=0,
                                        highlightthickness=0,
-                                       command=self.register)
+                                       )
         self.signin_btn.pack()
         self.login_label = Label(master, text="", background='#A4C58C', justify='center')
         self.signin_label = Label(master, text="", background='#A4C58C', justify='center')
 
-    
+        # Position the widgets on the window
+        self.username_entry.place(width=220, height=20, x=130, y=198)
+        self.password_entry.place(width=220, height=20, x=130, y=270)
+        # Log-in and Sign-in button position 
+        self.login_btn.place(width=120, height=42, x=118, y=314)
+        self.signin_btn.place(width=120, height=42, x=247, y=314)
+        self.login_label.place(width=220, height=20, x=137, y=374)
+        self.signin_label.place(width=220, height=20, x=137, y=406)
+
+        self.login_success = False
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    login_window = Login(root)
+    login_window.mainloop()
