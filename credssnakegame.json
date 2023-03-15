@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "credssnakegame",
+  "private_key_id": "133c3d1f8b4697ccbadcd84e4161018082e62a43",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzKBB208yV2x/N\nUdhP8D+PmtJwR+dfEL8u4iMaCmEiAEM4UCA3OXbBXnl8logWv3f7Y30mtOoMMnkd\nONHqaQNgjsGQFloAMFfxFpnJiud4DIt8uxBzG0PFuilKbV44/UKlWV6h8ud9xzGt\nPI76FJSalJ9wq5y3lHbdSIB/jTbbVY4rbcCId7DrHW7VOINMrBnnl7AFmyT4KPM0\nh+RA7lTlgv90uRKdAlCW/9C3TVvQ32E45y6L0soxUzL6a7bMTjLbxiVCYSLohgtf\nry2pt19Q2uGXxEG94eYRqx5fqiqEM5G9680npbxyJGYeP62IbVlqWVdEvPdFDnI1\nQCdYIIItAgMBAAECggEAGgOoCl0cUKlCD6oB/y+LRzKrum6Sb+kqXagsASi/LHT9\nzcRCvUocjp0FhnwENEtmpGvwnQl5j75XfFEHGCLaAPARtrasKGlcp68Isy12iWXG\n7lxqWdB8cY5j1wEVBLDvt7tHpLv09bxSIA3SVAlff6ezlCRzK+wEq4KO2Bac/9GI\n3f+5Ard3T7I5hYqwVvTE24AipJLIaTqYhWXg58qtJaMlmb0lcZL3E0BvaUGoVbdM\nNAdZwm/uGrDGTjgJMrCDsPP1G+4QOM+KVEjaIUcezaHfaHQ583wwtfAOSWsJnR7H\nzGcERjdts6qWFm4VFaXwgbiZ1uOvJo8pMFU0P/s6wQKBgQDoUah0VhZa34ze++eU\nr/DbZax7ke1f5P21usDRrUJRmgm/+bizEfrC1qRbsCXtI8YRsYpP/jC/IefOxa/i\nlGXuy9q9XXE/+FHmKChWVW9Kn2BUEUePT7irL/3nEVclWLLb+tBoOIotmvIPaOcj\n0WC4U4kik0h7yEEopDyeg8Cu7QKBgQDFayLvLG3N3AP9YJc1VP1D3ff6qztpn5gC\nUCTNWuaxbqqIFWUne0Ea6smBlfHPCkuH6y3FUZqvP9hecUr8nIatfU2dQZLudlHv\nUyLWcB/ccv7fbmE/KLfXnmw8i7Keua+dXUpVFu39QTGUIWW0rVEu5TDcWysUuXnr\njZmnv2l4QQKBgEi/WUqksndeTVR9+TR8K6XoHqzLM1O19yRzCHIgGQZIgAkXf5jD\nZoygffMgI6AwdZOQzsjhxg3z5gy/pqYC5jBysVpe6lmnvq2doZP3SNRLN/TbPFdK\nFX+1lYJH0cwmDEwKLDyWh95kCKx+ovJ6XBkcP3MOP8JTIORDGaBhjXK5AoGALvcQ\n5YNVT/8Cd/nNnyNr6QRaZSjtRnBwMkSsrKnubdGdAijM2rqov2WRsKFiWFXjqB8b\n0XBbc0umBrm/FB+MrqM7nqil8tL1JRFLHWapPcGhvre8rNDcA5CtwS2evcIA9Ffo\nQhvlXDVxPQNA9d2xjY16tUF/GzwQtCgIoO6ZgcECgYAqdGUtYTl/QLWElUaEVQqS\nazRTeE0GsUrLtqSgNmny94+quTqEhGTY7TKogbwOhuamTFkLjoxD3hkkLnvIt5Aq\ngOJRqHSUrC22/kvPBuXQPROmr3cq0cHlu181wV6Heh6ivE4cEyXtFZJ2JWZMTeZx\nx2JvSqz4NN5c+hKavPSRkw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "creds-snakegame@credssnakegame.iam.gserviceaccount.com",
+  "client_id": "115213914185606777712",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/creds-snakegame%40credssnakegame.iam.gserviceaccount.com"
+}
