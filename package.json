@@ -2,6 +2,7 @@
   "name": "terminal",
   "version": "1.0.0",
   "main": "server.js",
+  "node": "^15.8.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
