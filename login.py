@@ -1,6 +1,6 @@
+# pylint: disable=import-error
 # import libraries
 import tkinter as tk
-from tkinter import *
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
@@ -14,6 +14,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
 gc = gspread.authorize(credentials)
 wks = gc.open('snakegame_ws').sheet1
 
+
 # Setting Login interface with Tkinter
 class Login(tk.Frame):
     """
@@ -21,7 +22,8 @@ class Login(tk.Frame):
     """
     def on_password_entry_keypress(self, event):
         """
-        A method to call check_login() method if Return key is pressed in the password field
+        A method to call check_login() method if
+        Return key is pressed in the password field
 
         Args:
             event: A key event object
@@ -31,7 +33,8 @@ class Login(tk.Frame):
 
     def __init__(self, master):
         """
-        Constructor for Login class, initializes and configures the login window
+        Constructor for Login class, initializes and
+        configures the login window
 
         Args:
             master: A Tkinter object, which is the parent window
@@ -47,30 +50,41 @@ class Login(tk.Frame):
         self.login_img = PhotoImage(file='./login_screen.png')
         self.label_login = Label(self.master, image=self.login_img)
         self.label_login.place(x=0, y=0)
-         # Create the GUI widgets
-        self.username_entry = tk.Entry(self.master, borderwidth=0, highlightthickness=0)
+        # Create the GUI widgets
+        self.username_entry = tk.Entry(self.master,
+                                       borderwidth=0,
+                                       highlightthickness=0)
         self.username_entry.pack()
-        self.password_entry = tk.Entry(self.master, borderwidth=0, highlightthickness=0, show="*")
+        self.password_entry = tk.Entry(self.master,
+                                       borderwidth=0,
+                                       highlightthickness=0,
+                                       show="*")
         self.password_entry.pack()
         self.login_btn = tk.Button(self.master,
-                                       text="Log-in",
-                                       font='Arial 12',
-                                       bg='#0099FF',
-                                       fg='white',
-                                       borderwidth=0,
-                                       highlightthickness=0,
-                                       command=self.check_login)
+                                   text="Log-in",
+                                   font='Arial 12',
+                                   bg='#0099FF',
+                                   fg='white',
+                                   borderwidth=0,
+                                   highlightthickness=0,
+                                   command=self.check_login)
         self.login_btn.pack()
         self.signin_btn = tk.Button(self.master,
-                                       text="Sign-in",
-                                       font='Arial 12',
-                                       bg='#ECFFDD',
-                                       borderwidth=0,
-                                       highlightthickness=0,
-                                       command=self.register)
+                                    text="Sign-in",
+                                    font='Arial 12',
+                                    bg='#ECFFDD',
+                                    borderwidth=0,
+                                    highlightthickness=0,
+                                    command=self.register)
         self.signin_btn.pack()
-        self.login_label = Label(master, text="", background='#A4C58C', justify='center')
-        self.signin_label = Label(master, text="", background='#A4C58C', justify='center')
+        self.login_label = Label(master,
+                                 text="",
+                                 background='#A4C58C',
+                                 justify='center')
+        self.signin_label = Label(master,
+                                  text="",
+                                  background='#A4C58C',
+                                  justify='center')
         # Bind the 'Return' key to the password entry field,
         # when the user presses Enter, the login function is called
         self.password_entry.bind('<Key>', self.on_password_entry_keypress)
@@ -88,9 +102,11 @@ class Login(tk.Frame):
 
     def register(self):
         """
-        Register a new user by adding their login credentials to the Google Sheet.
+        Register a new user by adding their
+        login credentials to the Google Sheet.
 
-        If either the username or password field is empty, a message is displayed to the user.
+        If either the username or password field is empty,
+        a message is displayed to the user.
         """
 
         username = self.username_entry.get()
@@ -98,32 +114,31 @@ class Login(tk.Frame):
 
         if not username or not password:
             # Verify if both fields were filled
-            self.signin_label.config(fg="red", text="Please fill in both fields.")
+            self.signin_label.config(fg="red",
+                                     text="Please fill in both fields.")
             return
 
         # Add the new user's credentials to the Google Sheet
         row = [username, password,]
         index = 2  # Index of the row to add the login information to
         wks.insert_row(row, index)
-        
 
-        # Display a message to the user indicating that registration was successful
+        # Display a message to user indicating that registration was successful
         self.signin_label.config(fg="green", text="You are registered!")
 
-   
+
     def check_login(self):
         """
         Authenticate the user's login credentials.
 
-        If the user's username and password match those stored in the Google Sheet, display a
-        message indicating successful login. Otherwise, display a message indicating that the
+        If the user's username and password match those stored in 
+        the Google Sheet, display a message indicating successful login.
+        Otherwise, display a message indicating that the
         username or password is incorrect.
         """
         username = self.username_entry.get()
         password = self.password_entry.get()
-
         row_index = None
-        
         # Obtain information form googlesheets
         login_info = wks.get_all_values()
         # Check information to validate login
@@ -132,18 +147,18 @@ class Login(tk.Frame):
                 row_index = index + 1
                 # Update the last login column for the user
                 wks.update_cell(row_index, 5, str(datetime.now()))
-                # Move the user login to the top of the worksheet once it logged in
+                # Move the user login to the top of
+                #  the worksheet once it logged in
                 login_row = wks.row_values(row_index)
                 wks.delete_row(row_index)
                 wks.insert_row(login_row, 2)
                 # Display a message indicating successful login
                 self.login_label.config(text="Login Successful!", fg="green")
                 self.login_label.update()
-                # If Login successful, close the login screen and start the game
+                # If Login successful, close login screen and start the game
                 self.master.after(500, self.master.destroy)
                 run.Game.game_init(self)
         else:
             # If Login goes wrong, display an error mesage
             self.login_label.config(fg="red",
-                                        text="Sorry! Username or password isn't right.")
-
+                                    text="Username or password isn't right.")
