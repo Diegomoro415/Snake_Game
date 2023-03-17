@@ -94,7 +94,6 @@ class Game():
             for x, y in snake_list:
                 pygame.draw.rect(screen, (0, 255, 0), [x, y, block_size, block_size])
 
-
         # Define the function to start the game loop
         def game_loop():
             """
@@ -108,8 +107,10 @@ class Game():
             snake_list = []
             snake_length = 1
             # Initialize the food's position
-            food_x = round(random.randrange(0, screen_width - block_size) / 10) * 10
-            food_y = round(random.randrange(0, screen_height - block_size) / 10) * 10
+            food_x = round(random.randrange(0,
+                           screen_width - block_size) / 10) * 10
+            food_y = round(random.randrange(0,
+                           screen_height - block_size) / 10) * 10
             # Initialize the game over flag
             score = 0
             record_cell = wks.cell(2, 4)

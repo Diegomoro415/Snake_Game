@@ -1,4 +1,5 @@
 # pylint: disable=import-error
+# pylint: disable = no-name-in-module
 # import libraries
 import tkinter as tk
 import gspread
@@ -47,8 +48,8 @@ class Login(tk.Frame):
         self.master.wm_resizable(width=False, height=False)
         self.master.iconbitmap(default='snake.ico')
         # Set the login screen background image
-        self.login_img = PhotoImage(file='./login_screen.png')
-        self.label_login = Label(self.master, image=self.login_img)
+        self.login_img = tk.PhotoImage(file='./login_screen.png')
+        self.label_login = tk.Label(self.master, image=self.login_img)
         self.label_login.place(x=0, y=0)
         # Create the GUI widgets
         self.username_entry = tk.Entry(self.master,
@@ -77,14 +78,14 @@ class Login(tk.Frame):
                                     highlightthickness=0,
                                     command=self.register)
         self.signin_btn.pack()
-        self.login_label = Label(master,
-                                 text="",
-                                 background='#A4C58C',
-                                 justify='center')
-        self.signin_label = Label(master,
-                                  text="",
-                                  background='#A4C58C',
-                                  justify='center')
+        self.login_label = tk.Label(master,
+                                    text="",
+                                    background='#A4C58C',
+                                    justify='center')
+        self.signin_label = tk.Label(master,
+                                     text="",
+                                     background='#A4C58C',
+                                     justify='center')
         # Bind the 'Return' key to the password entry field,
         # when the user presses Enter, the login function is called
         self.password_entry.bind('<Key>', self.on_password_entry_keypress)
@@ -92,7 +93,7 @@ class Login(tk.Frame):
         # Position the widgets on the window
         self.username_entry.place(width=220, height=20, x=130, y=198)
         self.password_entry.place(width=220, height=20, x=130, y=270)
-        # Log-in and Sign-in button position 
+        # Log-in and Sign-in button position
         self.login_btn.place(width=120, height=42, x=118, y=314)
         self.signin_btn.place(width=120, height=42, x=247, y=314)
         self.login_label.place(width=220, height=20, x=137, y=374)
@@ -126,12 +127,11 @@ class Login(tk.Frame):
         # Display a message to user indicating that registration was successful
         self.signin_label.config(fg="green", text="You are registered!")
 
-
     def check_login(self):
         """
         Authenticate the user's login credentials.
 
-        If the user's username and password match those stored in 
+        If the user's username and password match those stored in
         the Google Sheet, display a message indicating successful login.
         Otherwise, display a message indicating that the
         username or password is incorrect.
