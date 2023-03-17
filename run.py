@@ -1,8 +1,10 @@
 # pylint: disable=E1101
+# pylint: disable=import-error
+# pylint: disable = no-name-in-module
 # import libraries
 import random
 import pygame
-from login import *
+from login import tk
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -13,6 +15,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
     'service_account.json', scope)
 gc = gspread.authorize(credentials)
 wks = gc.open('snakegame_ws').sheet1
+
 
 class Game():
     """
@@ -29,7 +32,7 @@ class Game():
         of the game, and displays the image on the screen.
 
     """
-    #Initial the snake game in pygame
+    # Initial the snake game in pygame
     def game_init(self):
         """
         Configures the Snake game using Pygame.
@@ -89,10 +92,12 @@ class Game():
             Draw the snake on the screen.
             Args:
                 snake_list (list):
-                A list of tuples representing the coordinates of segment of the snake.
+                A list of tuples representing the
+                coordinates of segment of the snake.
             """
             for x, y in snake_list:
-                pygame.draw.rect(screen, (0, 255, 0), [x, y, block_size, block_size])
+                pygame.draw.rect(screen, (0, 255, 0),
+                                 [x, y, block_size, block_size])
 
         # Define the function to start the game loop
         def game_loop():
@@ -137,7 +142,6 @@ class Game():
                         elif event.key == pygame.K_DOWN:
                             lead_y_change = block_size
                             lead_x_change = 0
-                            
                 # Move the snake's head
                 lead_x += lead_x_change
                 lead_y += lead_y_change
@@ -145,23 +149,24 @@ class Game():
                 # Fill the background
                 screen.fill((0, 40, 0))
                 # Check for collision with the walls
-                if lead_x < 0 or lead_x >= screen_width or lead_y < 0 or lead_y >= screen_height:
+                if lead_x < 0 or lead_x >= screen_width or \
+                   lead_y < 0 or lead_y >= screen_height:
                     game_over = True
                 # Render the score on the screen
-                score_text = display_font.render(f"Score: {score}", True, (255,
-                                                                        255, 255))
+                score_text = display_font.render(f"Score: {score}",
+                                                 True, (255, 255, 255))
                 score_rect = score_text.get_rect()
                 score_rect.topleft = (500 - 125, 15)
                 screen.blit(score_text, score_rect)
-                #Render the Record on the Screen
-                record_text = display_font.render(f"Record: {record}", True, (255,
-                                                                        255, 255))
+                # Render the Record on the Screen
+                record_text = display_font.render(f"Record: {record}",
+                                                  True, (255, 255, 255))
                 record_rect = record_text.get_rect()
                 record_rect.topright = (120, 15)
                 screen.blit(record_text, record_rect)
                 # Draw the food
-                pygame.draw.rect(screen, (255, 0, 0), [food_x, food_y, block_size,
-                                                block_size])
+                pygame.draw.rect(screen, (255, 0, 0),
+                                 [food_x, food_y, block_size, block_size])
                 # Update the snake's body
                 snake_head = [lead_x, lead_y]
                 snake_list.append(snake_head)
@@ -174,17 +179,20 @@ class Game():
                 # Draw the snake
                 draw_snake(snake_list)
 
-                # Update the snake's length and food's position if there's a collision
+                # Update the snake's length and food's
+                # position if there's a collision
                 if lead_x == food_x and lead_y == food_y:
                     food_x = round(random.randrange(0,
-                                screen_width - block_size) / 10.0) * 10.0
+                                   screen_width - block_size) / 10.0) * 10.0
                     food_y = round(random.randrange(0,
-                                screen_height - block_size) / 10.0) * 10.0
+                                   screen_height - block_size) / 10.0) * 10.0
                     snake_length += 1
                     # Initializing variables for score
                     score += 1
                     current_score.value = score
-                    wks.update_cell(current_score.row, current_score.col, current_score.value)
+                    wks.update_cell(current_score.row,
+                                    current_score.col,
+                                    current_score.value)
                     if score >= record:
                         record = score
                         wks.update_cell(2, 4, record)
@@ -215,7 +223,8 @@ class Game():
             # Clean the screen
             screen.fill((255, 255, 255))
 
+
 if __name__ == "__main__":
     root = tk.Tk()
-    login_window = Login(root)
+    login_window = tk.Login(root)
     login_window.mainloop()
